@@ -1,0 +1,22 @@
+def login_user():  #### TEST WITH 'or 1 = 1; -- 
+	global user_LoggedIn ## variable needed to know who logged in ##
+	if user_textbox.value.strip() == "":
+		info("Error", "You must enter a valid username")
+	elif PW_textbox.value.strip() == "":
+		info("Error", "You must enter a password")
+	else:
+		# check user and pw are authorised on db
+		# sql for selecting the username and password the user entered and search for it in the database
+		username = user_textbox.value.strip()
+		password = PW_textbox.value.strip()
+		query = "SELECT * from user WHERE user_name = ? AND user_password = ?"
+		rows = query_database(database_file, query, (username, password))
+		if len(rows)== 0:
+			info('Error', 'Error')
+		else:
+			user_textbox.value = ""
+			PW_textbox.value = ""
+			print(query)
+			info("Log in","Success")
+			app.hide()
+			reviewApp.show()
