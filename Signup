@@ -1,16 +1,24 @@
 def sign_up_validate():
-	username = user_signup_textbox.value.strip()
-	password = PW_signup_textbox.value.strip()
-	firstname = FN_textbox.value.strip()
+    username = user_signup_textbox.value.strip()
+    password = PW_signup_textbox.value.strip()
+    firstname = FN_textbox.value.strip()
+    lastname = LN_textbox.value.strip()
+    email = email_textbox.value.strip()
 
-	if not username or not password or not firstname:
-		info('Error', 'All fields must be completed.')
-	else:
-		sign_up_query = "insert into user (user_name, user_password, user_firstname) VALUES (?, ?, ?)"
-		execute_sql(database_file, sign_up_query, (username, password, firstname))
-		info('Sign Up', 'Success')
-		user_signup_textbox.value = ""
-		PW_signup_textbox.value = ""
-		FN_textbox.value = ""
-		SignUpApp.hide()
-		app.show()
+    if not username or not password or not firstname or not lastname or not email: # Presence check
+        info('Error', 'All fields must be completed.')
+    elif "@" not in email: # Format check
+        info('Error', 'Email muse contain an @ symbol')
+    elif len(password) < 8 or len(password) > 20: # Format check
+        info('Error', 'Password must be between 8 - 20 characters')
+    else:
+        sign_up_query = "insert into user (user_pword, user_firstname, user_lastname, user_email, user_username) VALUES (?, ?, ?, ?, ?)"
+        execute_sql(database_file, sign_up_query, (password, firstname, lastname, email, username))
+        info('Sign Up', 'Success')
+        user_signup_textbox.value = ""
+        PW_signup_textbox.value = ""
+        FN_textbox.value = ""
+        LN_textbox.value = ""
+        email_textbox.value = ""
+        SignUpApp.hide()
+        app.show()
