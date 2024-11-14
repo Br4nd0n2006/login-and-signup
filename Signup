@@ -14,7 +14,7 @@ def sign_up_validate():
     else:
         sign_up_query = "insert into user (user_pword, user_firstname, user_lastname, user_email, user_username) VALUES (?, ?, ?, ?, ?)"
         execute_sql(database_file, sign_up_query, (password, firstname, lastname, email, username))
-        info('Sign Up', 'Success')
+        info('Sign Up', 'You have successfully created an account!')
         user_signup_textbox.value = ""
         PW_signup_textbox.value = ""
         FN_textbox.value = ""
